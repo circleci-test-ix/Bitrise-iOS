@@ -14,7 +14,7 @@ jobs:
       - run: 
           name: Carthage
           command: |
-            brew install carthage
+            #brew install carthage
             carthage bootstrap --platform ios
       - run:
           name: XCodeGen
