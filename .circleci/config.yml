@@ -11,7 +11,11 @@ jobs:
       - checkout
       - restore_cache:
           key: cache
-      - run: brew install carthage
+      - run: 
+          name: Carthage
+          command: |
+            brew install carthage
+            carthage bootstrap --platform ios
       - run:
           name: XCodeGen
           command: |
