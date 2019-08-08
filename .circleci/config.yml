@@ -9,12 +9,12 @@ jobs:
       xcode: 10.2.1
     steps:
       - checkout
+      - run: git submodule update --init -f
       - restore_cache:
-          key: cache
+          key: cache      
       - run: 
           name: Carthage
-          command: |
-            #brew install carthage
+          command: |            
             carthage version
             swift -version
             carthage bootstrap --platform ios
