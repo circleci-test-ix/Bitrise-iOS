@@ -10,7 +10,7 @@ jobs:
           git submodule init
           git submodule update
       - restore_cache:
-          key: cache      
+          key: carthage
       - run: 
           name: Carthage
           command: |            
@@ -18,9 +18,9 @@ jobs:
             swift -version
             carthage bootstrap --platform ios
       - save_cache:
-          key: cache
+          key: carthage
           paths:
-            - ~/Carthage
+            - ~/project/Carthage
       - run:
           name: XCodeGen
           command: |
