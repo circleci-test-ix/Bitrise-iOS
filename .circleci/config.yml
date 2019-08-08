@@ -9,7 +9,9 @@ jobs:
       xcode: 10.2.1
     steps:
       - checkout
-      - run: git submodule update --init -f
+      - run: |
+          git submodule sync --recursive
+          git submodule update --recursive --init
       - restore_cache:
           key: cache      
       - run: 
