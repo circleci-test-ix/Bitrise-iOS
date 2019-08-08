@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  codecov: codecov/codecov@1.0.5
-
 jobs:
   build:
     macos:
@@ -20,6 +17,10 @@ jobs:
             carthage version
             swift -version
             carthage bootstrap --platform ios
+      - save_cache:
+          key: cache
+          paths:
+            - ~/Carthage
       - run:
           name: XCodeGen
           command: |
@@ -32,4 +33,12 @@ jobs:
           command: |
             touch user.xcconfig
             make test | xcpretty
-      - codecov/upload
+      - run:
+          name: Codecov.io
+          command: |
+            curl -s https://codecov.io/bash | bash -s -- \
+                -t "${CODECOV_TOKEN}" \
+                -n "${CIRCLE_BUILD_NUM}" \
+                -y "./codecov.yml" \
+                -J "BitriseClient" \
+                -Z || echo 'Codecov upload failed'
