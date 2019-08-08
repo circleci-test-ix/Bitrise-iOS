@@ -10,15 +10,16 @@ jobs:
           git submodule init
           git submodule update
       - restore_cache:
-          key: carthdeps
+          key: carthdeps1
       - run: 
           name: Carthage
           command: |            
             carthage version
             swift -version
             carthage bootstrap --platform ios
+            cp Cartfile.resolved Carthage
       - save_cache:
-          key: carthdeps
+          key: carthdeps1
           paths:
             - ~/project/Carthage
             - ~/Library/Caches/org.carthage.CarthageKit
